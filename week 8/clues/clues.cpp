@@ -22,10 +22,11 @@ typedef std::vector<Edge> EdgeV;
 
 bool bipartite(Delaunay &T, int n, long r){
   vector<int> color(n, -1); 
-  
+  vector<P> red; 
+  vector<P> blue; 
   for(auto v = T.finite_vertices_begin(); v != T.finite_vertices_end(); v++){
     if(color[v -> info()] != -1) continue;
-    
+    blue.push_back(v -> point());
     color[v -> info()] = 0;
     queue<Delaunay::Vertex_handle> Q;
     Q.push(v); 
@@ -39,23 +40,23 @@ bool bipartite(Delaunay &T, int n, long r){
             if(color[c -> info()] == color[u -> info()]) return false;
             else if(color[c -> info()] == -1){
               color[c -> info()] = 1 - color[u -> info()]; 
+              if(color[u -> info()] == 0) red.push_back(c -> point());
+              else blue.push_back(c -> point());
               Q.push(c); 
             }
           }
-          Delaunay::Vertex_circulator c2 = T.incident_vertices(c);
-          do {
-            if (CGAL::squared_distance(u->point(), c2->point()) <= r && !T.is_infinite(c2)) {
-              if (color[c2->info()] == -1) {
-                color[c2->info()] = 1 - color[u -> info()];
-                Q.push(c2);
-              }
-              else if (color[c2->info()] == color[u -> info()]) {
-                return false; 
-              }
-            }
-          } while (++c2 != T.incident_vertices(c));
         } while(++c != T.incident_vertices(u));
     }
+  }
+  Delaunay red_t; 
+  Delaunay blue_t;
+  red_t.insert(red.begin(), red.end());
+  blue_t.insert(blue.begin(), blue.end());
+  for(auto e =  red_t.finite_edges_begin(); e != red_t.finite_edges_end(); e++){
+    if(red_t.segment(*e).squared_length() <= r) return false; 
+  }
+  for(auto e =  blue_t.finite_edges_begin(); e != blue_t.finite_edges_end(); e++){
+    if(blue_t.segment(*e).squared_length() <= r) return false; 
   }
   return true; 
 }
