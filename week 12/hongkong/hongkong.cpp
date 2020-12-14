@@ -18,8 +18,6 @@ typedef CGAL::Delaunay_triangulation_2<K,Tds>  Triangulation;
 typedef Triangulation::Face_handle Face_handle;;
 typedef K::Point_2 P;
 
-// INF = 1.79e+308 :)
-const K::FT INF(std::numeric_limits<double>::max());
 
 void testcase(){
   int n,m;
@@ -74,7 +72,7 @@ void testcase(){
 
     Face_handle face = t.locate(p);
     P nearest = t.nearest_vertex(p,face)->point();
-    if(CGAL::square((r+s)) > CGAL::squared_distance(center,nearest)){
+    if(CGAL::square((r+s)) > CGAL::squared_distance(p,nearest)){
       cout << 'n';
     } else {
       if(CGAL::square(2*(r+s)) <= face->info()){
