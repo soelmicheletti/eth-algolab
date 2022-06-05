@@ -11,7 +11,7 @@ A wide spectrum of topic is covered, including sliding window, dynamic programmi
 
 ### General
 
-- Introduction to Algorithms, by Thomas H. Cormen, Charles E. Leiserson, Ronald L. Rivest, and Clifford Stein. 
+- Introduction to Algorithms, by Thomas H. Cormen, Charles E. Leiserson, Ronald L. Rivest, and Clifford Stein.
 - [LeetCode](https://leetcode.com/): great source to practice similar (but often simpler) problems.
 - [VisuAlgo](https://visualgo.net/en): interactive animations of some data structures and algorithms.
 - [My algorithms repository](https://github.com/soelmicheletti/algorithms) provides a light introduction to the basic algorithms (essential, but often implemented in libraries for the purpose of this course).
